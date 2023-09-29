@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import timezone 
+from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 FLAG_Types = (
     ('Sale','Sale'),
@@ -18,18 +20,36 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand',related_name='product_brand',on_delete=models.SET_NULL,null=True,blank=True)
     sku = models.CharField(max_length=12)
     quantity = models.IntegerField()
+    tags = TaggableManager()
+    slug = models.SlugField(null=True,blank=True)
 
     def __str__(self):
         return self.name
     
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.title)
+       super(Product, self).save(*args, **kwargs) 
+    
+
+class ProductImages(models.Model):
+    Product = models.ForeignKey(Product,related_name='product_images',on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='productimages')
+
+    def __str__(self):
+        return str(self.product)
 
 class Brand(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='brands')
+    slug = models.SlugField(null=True,blank=True)
 
     def __str__(self):
         return self.name
     
+     def save(self, *args, **kwargs):
+       self.slug = slugify(self.title)
+       super(Brand, self).save(*args, **kwargs) 
+
 
 class Review(models.Model):
     user = models.ForeignKey(User,related_name='review_author',on_delete=models.SET_NULL,null=True,blank=True)

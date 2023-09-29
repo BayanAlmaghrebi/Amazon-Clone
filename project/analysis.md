@@ -14,6 +14,7 @@ Product :
       - creation date
     - subtitle
     - quantity
+    - tags
 
 
 brand : *
