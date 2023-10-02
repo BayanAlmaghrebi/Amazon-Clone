@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.text import timezone 
+from django.utils import timezone 
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -28,7 +28,7 @@ class Product(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-       self.slug = slugify(self.title)
+       self.slug = slugify(self.name)
        super(Product, self).save(*args, **kwargs) 
     
 
@@ -37,7 +37,7 @@ class ProductImages(models.Model):
     image = models.ImageField(upload_to='productimages')
 
     def __str__(self):
-        return str(self.product)
+        return str(self.Product)
 
 class Brand(models.Model):
     name = models.CharField(max_length=50)
@@ -47,8 +47,8 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
     
-     def save(self, *args, **kwargs):
-       self.slug = slugify(self.title)
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
        super(Brand, self).save(*args, **kwargs) 
 
 
