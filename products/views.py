@@ -18,6 +18,11 @@ class ProductList(generic.ListView):
 class ProductDetail(generic.DetailView):
     model = Product
 
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Review.objects.filter(product=self.get_object())
+        return context
+
 class BrandList(generic.ListView):
     model = Brand
 

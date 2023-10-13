@@ -1,6 +1,5 @@
 products :
     - reviews
-    - brand detail
     - pagination
 
 
