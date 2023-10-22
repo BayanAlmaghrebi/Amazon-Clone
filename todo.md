@@ -1,5 +1,5 @@
 products :
-    - reviews
+    
     - pagination
 
 
