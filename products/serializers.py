@@ -5,6 +5,7 @@ from .models import Product , Brand , Review , ProductImages
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    brand = serializers.StringRelatedField()
     class Meta:
         model = Product
         fields = '__all__'
