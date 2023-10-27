@@ -11,6 +11,13 @@ class ProductImagesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+
 class ProductListSerializer(serializers.ModelSerializer):
     brand = serializers.StringRelatedField()
     review_count = serializers.SerializerMethodField()
@@ -44,12 +51,12 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 
 
-
 class ProductDetailSerializer(serializers.ModelSerializer):
     brand = serializers.StringRelatedField()
     review_count = serializers.SerializerMethodField()
     avg_rate = serializers.SerializerMethodField()
-    images = ProductImagesSerializer(many=True,source='product_images')
+    product_images = ProductImagesSerializer(many=True)
+    product_review = ProductReviewSerializer(many=True)
     class Meta:
         model = Product
         fields = '__all__'
