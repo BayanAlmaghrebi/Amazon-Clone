@@ -25,7 +25,7 @@ class ProductDetail(generic.DetailView):
 
 class BrandList(generic.ListView):
     model = Brand
-
+    paginate_by = 50
 
 class BrandDetail(generic.ListView):
     model = Product

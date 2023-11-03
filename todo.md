@@ -1,6 +1,6 @@
 products :
     
-    - pagination
+    - home
     - queryset api
 
 
