@@ -1,13 +1,7 @@
 products :
     
     - pagination
-
-
-api :
-    - crud operations
-    - filter, order , search , pagination
-    - docs
-    - authentication
+    - queryset api
 
 
 orders:
