@@ -1,6 +1,4 @@
 products :
-    
-    - company
     - queryset api
 
 
