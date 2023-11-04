@@ -1,6 +1,5 @@
 products :
     
-    - home
     - company
     - queryset api
 
