@@ -1,7 +1,9 @@
 from django.shortcuts import render
-
+from django.views.decorators.cache import cache_page
 from products.models import Brand , Product , Review
 
+
+@cache_page(60 * 24 * 60)
 def home(request):
     brands = Brand.objects.all()[:10]     # [:10] يعني احضار اول 10 براندات
     sale_products = Product.objects.filter(flag='Sale')[:10]

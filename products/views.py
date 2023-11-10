@@ -5,15 +5,15 @@ from django.views import generic
 from .models import Product , Brand , Review
 from django.db.models import Q , Value , F
 from django.db.models.aggregates import Count,Min,Max,Avg,Sum
+from django.views.decorators.cache import cache_page
 
 
 def brand_list(request):
     data = Brand.objects.all()  #query --> method--> change data main query
     return render(request,'html',{'brands':data}) #{'brands':data} --> context --> method(extra data) , html = template
 
-
+@cache_page(60 * 1)
 def mydebug(request):
-    # data = Product.objects.select_related('brand').all()
     # data = Product.objects.filter(price__gte=100)
     # data = Product.objects.filter(price__lte=100)
     # data = Product.objects.filter(price__range=(20,22))
@@ -33,7 +33,7 @@ def mydebug(request):
     # )
 
     # data = Product.objects.order_by('price')
-    data = Product.objects.order_by('-price')
+    # data = Product.objects.order_by('-price')
     # data = Product.objects.order_by('name','-price')
     # data = Product.objects.filter(flag='New').order_by('-price')
 
@@ -60,6 +60,8 @@ def mydebug(request):
 
 
     # data = Product.objects.annotate(price_with_tax=F('price')*1.25)
+
+    data = Product.objects.all()
     return render(request, 'products/debug.html',{'data':data})
 
 

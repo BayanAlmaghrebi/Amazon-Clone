@@ -1,6 +1,3 @@
-products :
-    - queryset api
-
 
 orders:
     - cart
@@ -20,8 +17,6 @@ api :
 charts
 translation
 celery
-redis
-caching
 ajax
 docker
 ----------------
