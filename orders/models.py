@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 import datetime
 from products.models import Product
 from utils.generate_code import generate_code
+from accounts.models import DeliveryAddress
+
 
 ORDER_STATUS = (
     ('Recieved','Recieved'),
@@ -18,7 +20,7 @@ class Order(models.Model):
     status = models.CharField(max_length=15 , choices=ORDER_STATUS,default='Recieved')
     order_time = models.DateField(default=timezone.now)
     delivery_time = models.DateField(null=True,blank=True)
-    delivery_location = ''
+    delivery_location = models.ForeignKey(DeliveryAddress , related_name='delivery_address',on_delete=models.SET_NULL, null=True)
     coupon = models.ForeignKey('Coupon',related_name='order_coupon',on_delete=models.SET_NULL, null=True,blank=True)
     order_total_discount = models.FloatField(null=True,blank=True)
 
@@ -44,9 +46,9 @@ Cart_STATUS = (
 )
 
 class Cart(models.Model):
-    user = models.ForeignKey(User,related_name='Cart_user',on_delete=models.SET_NULL,null=True,blank=True)
+    user = models.ForeignKey(User,related_name='cart_user',on_delete=models.SET_NULL,null=True,blank=True)
     status = models.CharField(max_length=15 , choices=Cart_STATUS,default='Recieved')
-    coupon = models.ForeignKey('Coupon',related_name='order_coupon',on_delete=models.SET_NULL, null=True,blank=True)
+    coupon = models.ForeignKey('Coupon',related_name='cart_coupon',on_delete=models.SET_NULL, null=True,blank=True)
     Cart_total_discount = models.FloatField(null=True,blank=True)
 
 
@@ -65,7 +67,7 @@ class CartDetail(models.Model):
 
 
 
-    
+
 
 class Coupon(models.Model):
     code = models.CharField(max_length=15)
