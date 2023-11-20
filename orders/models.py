@@ -62,6 +62,11 @@ class CartDetail(models.Model):
     quantity = models.IntegerField()
     total = models.FloatField()
 
+
+
+
+    
+
 class Coupon(models.Model):
     code = models.CharField(max_length=15)
     start_date = models.DateField(null=True,blank=True , default=timezone.now)

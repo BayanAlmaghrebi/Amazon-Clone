@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'products',
     'settings',
     'orders',
+    'accounts',
 ]
 
 #restapi settings:
