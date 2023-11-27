@@ -1,10 +1,9 @@
 
 orders:
-    - cart
     - orders
     - checkout
     - coupons
-    - payments
+    
 
 api :
     - cart api
@@ -19,6 +18,7 @@ translation
 celery
 ajax
 docker
+payments
 ----------------
 vuejs basics
 vuejs + django
