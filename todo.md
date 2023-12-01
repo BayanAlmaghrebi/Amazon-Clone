@@ -1,9 +1,8 @@
 
 orders:
-    - orders
     - checkout
     - coupons
-    
+    - payment
 
 api :
     - cart api
