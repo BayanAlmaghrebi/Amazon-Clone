@@ -1,9 +1,7 @@
 
 api :
     - cart api
-    - orders api
-    - coupons api
-    - user auth api
+  
 
 
 
@@ -13,6 +11,7 @@ celery
 ajax
 docker
 payments
+user auth api
 ----------------
 vuejs basics
 vuejs + django

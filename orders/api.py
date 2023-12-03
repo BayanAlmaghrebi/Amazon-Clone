@@ -27,11 +27,10 @@ class OrderDetailAPI(generics.RetrieveAPIView):
 
 
 
-
 class ApplyCouponAPI(generics.GenericAPIView):
     def post(self, request,*args, **kwargs):
         user = User.objects.get(username=self.kwargs['username'])
-        cart = Cart.objects.get(user=request.user , status='Inprogress')
+        cart = Cart.objects.get(user=user , status='Inprogress')
         cart_detail = CartDetail.objects.filter(cart=cart)
         delivery_fee = DeliveryFee.objects.last().fee
         sub_total = cart.cart_total()
@@ -55,3 +54,21 @@ class ApplyCouponAPI(generics.GenericAPIView):
 
         return Response({'message':'coupon not found or coupon ended '})
     
+class CartCreateDetailDeleteAPI(generics.GenericAPIView):
+    def get(self, request,*args, **kwargs):
+        """ get or create cart """
+        user = User.objects.get(username=self.kwargs['username'])
+        cart , created = Cart.objects.get_or_create(user=user , status='Inprogress')
+        data = CartSerializer(cart).data
+        return Response({'cart':data})
+    
+
+
+
+    def post(self, request,*args, **kwargs):
+        """ add or update """
+        pass
+
+
+    def delete(self, request,*args, **kwargs):
+        pass 
