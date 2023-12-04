@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     "debug_toolbar",
+    'drf_yasg',
 
     # my apps
     'products',
@@ -60,7 +61,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
        
-    ]
+    ],
 }
 
 
