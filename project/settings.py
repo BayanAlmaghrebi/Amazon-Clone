@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'drf_yasg',
 
+    'dj_rest_auth',
+
     # my apps
     'products',
     'settings',
