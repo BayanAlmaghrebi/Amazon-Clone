@@ -67,8 +67,14 @@ class CartCreateDetailDeleteAPI(generics.GenericAPIView):
 
     def post(self, request,*args, **kwargs):
         """ add or update """
-        pass
+        user = User.objects.get(username=self.kwargs['username'])
 
 
     def delete(self, request,*args, **kwargs):
-        pass 
+        user = User.objects.get(username=self.kwargs['username'])
+        cart = Cart.objects.get(user=user , status='Inprogress')
+        product = CartDetail.objects.get(id=request.data['product_id'])
+
+        product.delete()
+        return Response({'message':'item was deleted successfully'})
+    
