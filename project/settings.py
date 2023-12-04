@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     # my apps
     'products',
@@ -54,6 +59,9 @@ INSTALLED_APPS = [
     'orders',
     'accounts',
 ]
+
+SITE_ID = 1
+
 
 #restapi settings:
 REST_FRAMEWORK = {
@@ -76,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -172,3 +181,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #        "LOCATION": "redis://127.0.0.1:6379",
 #    }
 #}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
