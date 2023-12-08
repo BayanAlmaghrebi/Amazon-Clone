@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'rosetta',
 
     # my apps
     'products',
@@ -159,7 +160,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-MODELTRANSLATION_LANGUAGES = ('en', 'ar')
+MODELTRANSLATION_LANGUAGES = ('en', 'ar' , 'de')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -193,4 +194,5 @@ gettext = lambda s: s
 LANGUAGES = [
     ("ar", "Arabic"),
     ("en", "English"),
+    ("de", "German"),
 ]
