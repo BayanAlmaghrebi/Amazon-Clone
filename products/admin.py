@@ -8,7 +8,7 @@ class ProductImageInline(admin.TabularInline):
 
 
 class ProductAdmin(TranslationAdmin):
-    list_display = ['name','sku','flag','price','quantity']
+    list_display = ['id','name','sku','flag','price','quantity']
     list_filter = ['flag','brand']
     search_fields = ['name','subtitle','description']
     inlines = [ProductImageInline,]
