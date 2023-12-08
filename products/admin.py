@@ -1,13 +1,13 @@
 from django.contrib import admin
 from .models import Product , Brand , ProductImages , Review
-
+from modeltranslation.admin import TranslationAdmin
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImages
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslationAdmin):
     list_display = ['name','sku','flag','price','quantity']
     list_filter = ['flag','brand']
     search_fields = ['name','subtitle','description']
