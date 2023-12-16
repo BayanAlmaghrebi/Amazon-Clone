@@ -3,3 +3,4 @@ Python
 Django
 Html
 CSS
+JS
