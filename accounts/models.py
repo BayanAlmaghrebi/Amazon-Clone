@@ -3,17 +3,26 @@ from django.contrib.auth.models import User
 
 from utils.generate_code import generate_code
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User,related_name='user_profile',on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='accounts')
+    image = models.ImageField(upload_to='accounts',null=True,blank=True)
     code = models.CharField(max_length=10,default=generate_code)
-
 
     def __str__(self):
         return str(self.user)
     
-
+    
+@receiver(post_save,sender=User)
+def create_profile(sender,instance,created,**kwargs):
+    if created:
+        Profile.objects.create(
+            user = instance
+        )
 
 PHONE_TYPES = (
     ('Primary','Primary'),
@@ -45,3 +54,4 @@ class DeliveryAddress(models.Model):
 
     def __str__(self):
         return f"{self.type} - {self.address}"
+    
