@@ -39,12 +39,15 @@ schema_view = get_schema_view(
 )
 
 
+
 urlpatterns = [
+    path('accounts/' , include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('',home),
     path("admin/", admin.site.urls),
     path('products/' , include('products.urls')),
     path('orders/' , include('orders.urls',namespace='orders')),
-    path('accounts/' , include('accounts.urls')),
+
 
 
     path("i18n/", include("django.conf.urls.i18n")),

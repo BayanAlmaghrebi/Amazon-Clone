@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User 
 
 def signup(request):
-    
+
     if request.method == 'POST':
         form = SignupForm(request.POST)
 
@@ -13,19 +13,21 @@ def signup(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
 
-
-            user = form.save(commit=False)
+            # create User(inactive) -----> Create Profile [code]
+            user = form.save(commit=False)   
             user.is_active = False
             form.save()
 
-            profile = Profile.objects.get(user__username=username) 
 
+            # email code 
+            profile = Profile.objects.get(user__username=username)
 
+            # send mail 
             send_mail(
                 "Activate Your Account",
                 f" Welcome {username} \nUse this code {profile.code} to activate your account\nMystroTeam",
-                "bayanalmaghrebi@gmail.com", #send from
-                [email], #send to
+                "pythondeveloper6@gmail.com",  # send from 
+                [email],  # send to
                 fail_silently=False,
             )
             return redirect(f'/accounts/{username}/activate')
@@ -33,11 +35,15 @@ def signup(request):
     else:
         form = SignupForm()
 
-    return render(request,'accounts/signup.html',{'form':form})
-    
+    return render(request,'registration/signup.html',{'form':form})
+
+
+    # signup ---> code:email ---> activate:code ---> login (activated)
+
+
 
 def activate(request,username):
-    profile = Profile.objects.get(user__username=username) 
+    profile = Profile.objects.get(user__username=username)
 
     if request.method == 'POST':
         form = ActivateForm(request.POST)
@@ -51,9 +57,9 @@ def activate(request,username):
                 user.is_active = True
                 user.save()
                 return redirect('/accounts/login')
-    
-    else:
+
+    else:  # get
         form = ActivateForm()
 
-    return render(request,'accounts/activate.html',{'form':form})
+    return render(request,'registration/activate.html',{'form':form})
      
