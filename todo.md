@@ -1,19 +1,17 @@
 
-api :
-    - cart api
-  
 
 
+- error : confirm email 
 
-charts
-translation
-celery
-ajax
-docker
-payments
-user auth api
-----------------
-vuejs basics
-vuejs + django
-viewsets api
-testing
+
+- charts
+
+- celery 
+- docker 
+- ajax 
+- payments 
+- ----------------
+- vuejs basics 
+- vuejs + django
+- viewsets api  
+- testing 
