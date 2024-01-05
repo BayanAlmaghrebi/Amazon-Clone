@@ -8,6 +8,7 @@ from django.db.models.aggregates import Count,Min,Max,Avg,Sum
 from django.views.decorators.cache import cache_page
 from django.utils import translation
 
+from .tasks import send_emails
 
 def brand_list(request):
     data = Brand.objects.all()  #query --> method--> change data main query
@@ -62,8 +63,15 @@ def mydebug(request):
 
     # data = Product.objects.annotate(price_with_tax=F('price')*1.25)
 
+
     data = Product.objects.all()
+
+    # execute function : task
+    send_emails.delay()  # delay = run task : time 20 sec
+
+
     return render(request, 'products/debug.html',{'data':data})
+
 
 
 class ProductList(generic.ListView):

@@ -7,3 +7,6 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
+
+  myredis:
+    image: redis:7.2.3-alpine
