@@ -66,7 +66,7 @@ def mydebug(request):
 
     data = Product.objects.all()
 
-    data = User.objects.all()
+    #data = User.objects.all()
 
     # execute function : task
     send_emails.delay(data)  # delay = run task : time 20 sec
