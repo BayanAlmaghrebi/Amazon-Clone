@@ -191,12 +191,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#CACHES = {
-#    "default": {
-#        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#        "LOCATION": "redis://127.0.0.1:6379",
-#    }
-#}
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
 
 
 #CACHES = {
@@ -240,3 +240,10 @@ EMAIL_HOST_PASSWORD = "cjajwyezvvhgnayj"
 #CELERY_RESULT_BACKEND ='redis://127.0.0.1:6379/0'
 CELERY_BROKER_URL ='redis://myredis:6379/0'
 CELERY_RESULT_BACKEND ='redis://myredis:6379/0'
+
+
+
+
+# Stripe
+STRIPE_API_KEY_PUBLISHABLE ='pk_test_51OYawpIqYCo6xzLLOqfAkXHc5u69yn5VLEyqsK141sBxBNlGylD5McUF6o8db2E6JNQYwbMEL9dPmcwviPqHvF6U00sZf3t5ci'
+STRIPE_API_KEY_SECRET ='sk_test_51OYawpIqYCo6xzLLaJdmLzzlC9yVXO8qpEPN7gOn5T6DYF6M0SchcFwKhEiiCWwvoLoq0FQHAMntOGwHgvH8KyeL00dqSV4W0v'
