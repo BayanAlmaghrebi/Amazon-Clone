@@ -10,6 +10,10 @@ from django.utils import translation
 
 from .tasks import send_emails
 
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
+
 def brand_list(request):
     data = Brand.objects.all()  #query --> method--> change data main query
     return render(request,'html',{'brands':data}) #{'brands':data} --> context --> method(extra data) , html = template
@@ -129,4 +133,7 @@ def add_product_review(request,slug):
         feedback = review
     )
 
-    return redirect(f'/products/{slug}')
+    # get reviews 
+    reviews = Review.objects.filter(product=product)
+    page = render_to_string('include/reviews.html',{'reviews':reviews})
+    return JsonResponse({'result':page})
