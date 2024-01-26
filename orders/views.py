@@ -89,7 +89,38 @@ def checkout(request):
         'pub_key':pub_key
         })
 
+def checkout(request):
 
+
+
+    if request.method == 'POST':
+        # existing coupon code
+
+        if coupon and coupon.quantity > 0 :
+            today = datetime.datetime.today().date()
+            if today >= coupon.start_date and today < coupon.end_date : 
+                coupon_value = sub_total / 100*coupon.discount
+                sub_total = sub_total - coupon_value
+                total = sub_total + delivery_fee
+
+                cart.coupon = coupon
+                cart.cart_total_discount = sub_total
+                cart.save()
+
+                apply_coupon_html = render_to_string('apply_coupon.html',{
+                        'delivery_fee': delivery_fee , 
+                        'sub_total': sub_total , 
+                        'discount': coupon_value , 
+                        'total': total,
+                    }) 
+                response_data = {
+                    'success':True,
+                    'message':'Coupon applied',
+                    'apply_coupon_html':apply_coupon_html,
+                    'total': total,
+                }                  
+
+                return JsonResponse({'result':apply_coupon_html})
 
 
 
