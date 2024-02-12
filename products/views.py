@@ -18,7 +18,7 @@ def brand_list(request):
     data = Brand.objects.all()  #query --> method--> change data main query
     return render(request,'html',{'brands':data}) #{'brands':data} --> context --> method(extra data) , html = template
 
-@cache_page(60 * 1)
+#@cache_page(60 * 1)
 def mydebug(request):
     # data = Product.objects.filter(price__gte=100)
     # data = Product.objects.filter(price__lte=100)
