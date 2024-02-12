@@ -46,7 +46,7 @@ def add_products(n):
             image = f"products/{images[random.randint(0,9)]}",
             price = round(random.uniform(20.99,99.99),2),
             flag = flags[random.randint(0,2)],
-            brand = Brand.objects.get(id=random.randint(1,300)),
+            brand = Brand.objects.get(id=random.randint(1,290)),
             sku = random.randint(1000,1000000),
             quantity = random.randint(5,100),
         )
@@ -63,13 +63,13 @@ def add_reviews(n):
     for x in range(n):
         Review.objects.create(
             user = User.objects.get(id=random.randint(1,5)),
-            product = Product.objects.get(id=random.randint(1,1500)),
+            product = Product.objects.get(id=random.randint(1,500)),
             rate = random.randint(1,5),
             feedback = fake.text(max_nb_chars = 200) 
         )
     print(f'{n} Reviews was created successfully')
 
-add_users(10)
-add_brands(294)
-add_products(1500)
-add_reviews(3000)
+#add_users(10)
+#add_brands(294)
+#add_products(500)
+add_reviews(100)

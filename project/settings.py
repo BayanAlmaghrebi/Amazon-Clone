@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-i&wr^*owdolxo4pf4ai1wa^(wk+6q4n$cmv4o!y%tb7rno&p#v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,6 +83,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -124,12 +126,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#DATABASES = {
+#    'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 
 #DATABASES = {
 #     "default": {
@@ -142,6 +144,12 @@ DATABASES = {
 #     }
 # }
 
+
+
+
+DATABASES = {
+    "default": dj_database_url.parse("postgres://mypostgres_dm3v_user:P3QcaLKqDOQZYe9yVJcvHubq7zAwwIba@dpg-cn53f1la73kc738lt75g-a.frankfurt-postgres.render.com/mypostgres_dm3v",conn_max_age=600)
+    }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -178,6 +186,7 @@ MODELTRANSLATION_LANGUAGES = ('en', 'ar' , 'de')
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -245,5 +254,9 @@ CELERY_RESULT_BACKEND ='redis://myredis:6379/0'
 
 
 # Stripe
-STRIPE_API_KEY_PUBLISHABLE ='pk_test_51OYawpIqYCo6xzLLOqfAkXHc5u69yn5VLEyqsK141sBxBNlGylD5McUF6o8db2E6JNQYwbMEL9dPmcwviPqHvF6U00sZf3t5ci'
-STRIPE_API_KEY_SECRET ='sk_test_51OYawpIqYCo6xzLLaJdmLzzlC9yVXO8qpEPN7gOn5T6DYF6M0SchcFwKhEiiCWwvoLoq0FQHAMntOGwHgvH8KyeL00dqSV4W0v'
+STRIPE_API_KEY_PUBLISHABLE =''
+STRIPE_API_KEY_SECRET =''
+
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
