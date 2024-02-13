@@ -134,7 +134,7 @@
                 
                     {% if user.is_authenticated %}
                         <a href="/account/profile" class="header-widget" title="My Account">
-                            {% if user.user_profile.image.url %}
+                            {% if user.user_profile.image %}
                                 <img src="{{user.user_profile.image.url}}" alt="user">
                             {% else %}
                                 <img src="{% static 'default.jpg' %}" alt="user">
