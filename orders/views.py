@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from .models import Cart , CartDetail , Order , Coupon , OrderDetail
 from products.models import Product
-
+from django.contrib.auth.decorators import login_required
 from settings.models import DeliveryFee
 import datetime
 import stripe 
@@ -10,6 +10,10 @@ from django.conf import settings
 from utils.generate_code import generate_code
 from django.template.loader import render_to_string
 
+
+
+
+@login_required  #معناها ما حدا فيو يروح عالاوردر ليست الا ازا مسجل دخول
 def order_list(request):
     orders = Order.objects.filter(user=request.user) # اليوزر هو اليوزر يلي مسجل دخول. الفائدة:عرض الاوردر تبع اليوزر فقط وعدم عرض جميع اوردرات المستخدمين في الموقع
     return render(request,'orders/orderlist.html',{'orders':orders})
@@ -41,7 +45,7 @@ def add_to_cart(request):
     return JsonResponse({'result':page,'total':total,'cart_count':cart_count})
 
 
-
+@login_required
 def checkout(request):
 
     cart = Cart.objects.get(user=request.user , status='Inprogress')
@@ -89,42 +93,9 @@ def checkout(request):
         'pub_key':pub_key
         })
 
-def checkout(request):
-
-
-
-    if request.method == 'POST':
-        # existing coupon code
-
-        if coupon and coupon.quantity > 0 :
-            today = datetime.datetime.today().date()
-            if today >= coupon.start_date and today < coupon.end_date : 
-                coupon_value = sub_total / 100*coupon.discount
-                sub_total = sub_total - coupon_value
-                total = sub_total + delivery_fee
-
-                cart.coupon = coupon
-                cart.cart_total_discount = sub_total
-                cart.save()
-
-                apply_coupon_html = render_to_string('apply_coupon.html',{
-                        'delivery_fee': delivery_fee , 
-                        'sub_total': sub_total , 
-                        'discount': coupon_value , 
-                        'total': total,
-                    }) 
-                response_data = {
-                    'success':True,
-                    'message':'Coupon applied',
-                    'apply_coupon_html':apply_coupon_html,
-                    'total': total,
-                }                  
-
-                return JsonResponse({'result':apply_coupon_html})
-
-
 
 # create invoice link 
+@login_required
 def process_payment(request):
 
     cart = Cart.objects.get(user=request.user , status='Inprogress')
@@ -165,6 +136,7 @@ def process_payment(request):
 
 
 # success
+@login_required
 def payment_success(request):
     cart = Cart.objects.get(user=request.user , status='Inprogress')
     cart_detail = CartDetail.objects.filter(cart=cart)
@@ -200,6 +172,7 @@ def payment_success(request):
 
 
 # failed
+@login_required
 def payment_failed(request):
     
     return render(request,'orders/failed.html',{})

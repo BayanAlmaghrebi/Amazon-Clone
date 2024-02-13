@@ -56,7 +56,8 @@ class Product(models.Model):
     #     else:
     #         avg = 0
     #     return avg_rate
-
+    class Meta:
+        ordering = ('-id',)  #كلاس ميتا بالمودلز فيني طبق عليها اوبشنز بالمودلز 
 
 
 class ProductImages(models.Model):
