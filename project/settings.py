@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i&wr^*owdolxo4pf4ai1wa^(wk+6q4n$cmv4o!y%tb7rno&p#v'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -148,7 +152,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 DATABASES = {
-    "default": dj_database_url.parse("postgres://mypostgres_dm3v_user:P3QcaLKqDOQZYe9yVJcvHubq7zAwwIba@dpg-cn53f1la73kc738lt75g-a.frankfurt-postgres.render.com/mypostgres_dm3v",conn_max_age=600)
+    "default": dj_database_url.parse(os.environ.get('DATABASE_URL'),conn_max_age=600)
     }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
