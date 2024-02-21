@@ -15,7 +15,7 @@ def add_users(n):
     for x in range(n):
         fake = Faker()
         User.objects.create(
-            username = f"user_{x}",
+            username = f"user_{x*2}",
             email = fake.email(),
             password = '12345'
         )
